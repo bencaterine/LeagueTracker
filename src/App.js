@@ -1,23 +1,13 @@
-import logo from './logo.svg';
 import './App.css';
+import {useFetchGames} from './useFetchGames'
 
 function App() {
+  const {data} = useFetchGames();
+  let game = (typeof data[0] === 'undefined') ? {home: '', away: '', date: {seconds: 0}, home_score: '', away_score: ''} : data[0];
+  let game_date = new Date(game.date.seconds * 1000);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {game.home} {game.home_score}-{game.away_score} {game.away} {game_date.toLocaleString()}
     </div>
   );
 }
